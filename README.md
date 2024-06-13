@@ -1,6 +1,6 @@
 # TopCoorperative Frontend
 
-Frontend for the TopCoorperative web application.
+Frontend for the TopCoorperative web application. Get loans.
 
 ## Setup
 
