@@ -17,6 +17,7 @@ export default function Page() {
       <CTALink
         label="Get Started"
         link="/signin"
+        classes=""
       />
 
       <Image
