@@ -18,7 +18,7 @@ type SignupFormState = {
   apiError?: string,
 };
 
-type CTAAuthLabel = 'Sign In' | 'Sign Up' | 'Get Started';
+type CTAAuthLabel = 'Sign In' | 'Sign Up' | 'Sign Out' | 'Get Started';
 type CTALinkLabel = CTAAuthLabel | 'Pay Up' | 'Request Loan';
 
 type QueryObj = Record<string, string>;
