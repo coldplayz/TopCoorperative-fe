@@ -24,6 +24,7 @@ export default function NavBar({
         <CTALink
           label={CTALabel}
           link={CTAHref}
+          classes=""
         />
       </nav>
     </header>
