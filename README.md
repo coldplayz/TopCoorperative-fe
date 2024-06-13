@@ -1,5 +1,28 @@
-## Next.js App Router Course - Starter
+# TopCoorperative Frontend
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+Frontend for the TopCoorperative web application.
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+## Setup
+
+Clone the repo:
+
+```bash
+git clone https://github.com/coldplayz/TopCoorperative-fe.git
+```
+
+`cd` to the cloned repo and install dependencies:
+
+```bash
+cd TopCoorperative-fe
+npm install
+```
+
+start the dev server:
+
+```bash
+npm run dev
+```
+
+Visit the homepage at `http://localhost:3456`
+
+More docs loading...

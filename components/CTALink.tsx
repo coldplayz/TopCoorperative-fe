@@ -4,11 +4,12 @@ import { GrLinkNext } from 'react-icons/gr';
 import { Button } from "@/components/ui/button";
 
 type Props = {
-  label: 'Sign In' | 'Sign Up' | 'Get Started';
+  label: CTALinkLabel;
   link: string;
+  classes: string;
 };
 
-export default function CTALink({ label, link }: Props) {
+export default function CTALink({ label, link, classes }: Props) {
   let twClasses = 'flex justify-between items-center px-3 py-1.5 rounded-lg ';
 
   switch (label) {
@@ -27,7 +28,7 @@ export default function CTALink({ label, link }: Props) {
       <Button asChild>
         <Link
           href={link}
-          // className={twClasses}
+          className={classes}
         >
           {label}
           <GrLinkNext className="ml-3" />

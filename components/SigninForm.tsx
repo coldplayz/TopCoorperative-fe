@@ -8,7 +8,6 @@ import { BiSolidShow } from "react-icons/bi";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
-import logo from "@/public/webtodo_logo.png";
 import { loginUser } from "@/lib/actions";
 import { LoadingSpinner } from "@/components/ui/gb-spinner";
 

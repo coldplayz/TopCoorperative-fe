@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import SigninForm from "@/components/SigninForm";
 
-export default function Login() {
+export default async function Login() {
   return (
     <div className="w-full h-full p-4 flex flex-col justify-center items-center gap-20 border rounded-lg bg-gray-50">
       <div className="flex flex-col justify-center items-center gap-2">

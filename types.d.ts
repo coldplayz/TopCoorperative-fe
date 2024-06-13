@@ -19,6 +19,7 @@ type SignupFormState = {
 };
 
 type CTAAuthLabel = 'Sign In' | 'Sign Up' | 'Get Started';
+type CTALinkLabel = CTAAuthLabel | 'Pay Up' | 'Request Loan';
 
 type QueryObj = Record<string, string>;
 
@@ -26,4 +27,10 @@ type ClientRouteKeys = 'marketing' | 'dashboard' | 'signin' | 'signup';
 
 type ClientRoutes = {
   [k in keyof ClientRouteKeys]: any;
+};
+
+type BackendMethods = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
+type FetchOptsBE = {
+  cache?: boolean;
 };

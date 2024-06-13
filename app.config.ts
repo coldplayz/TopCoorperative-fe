@@ -1,21 +1,32 @@
-import { join } from "node:path";
-import { URL, URLSearchParams } from "node:url";
+import { join } from "path";
+// import { join } from "@/lib/utils";
+import { URL, URLSearchParams } from "url";
 
 export const FRONTEND_HOST = process.env.FRONTEND_HOST || 'http://localhost:3000';
 export const BACKEND_HOST = process.env.BACKEND_HOST || 'http://localhost:3456';
 
 export const API_PREFIX = process.env.API_PREFIX || '/api/v1';
 
+export const MAX_BREADCRUMB_ITEMS = 3;
+
 export const ops = {
   requests: {
     create: 'createRequest',
     find: 'findRequests',
+    findOne: 'findRequest',
     edit: 'editRequest',
     delete: 'deleteRequest',
+  },
+  loans: {
+    findAll: 'findLoans',
+    findOne: 'findLoan',
+    edit: 'editLoan',
+    delete: 'deleteLoan',
   },
   users: {
     create: 'createUser',
     find: 'findUsers',
+    findMe: 'findMe',
     edit: 'editUser',
     delete: 'deleteUser',
   },
@@ -67,6 +78,13 @@ export function getApiEndpoint(
     case ops.requests.edit:
     case ops.requests.delete:
       return getUrl(join(uri, '/requests', slug), queryObj);
+    case ops.loans.findAll:
+    case ops.loans.findOne:
+    case ops.loans.edit:
+    case ops.loans.delete:
+      return getUrl(join(uri, '/loans', slug), queryObj);
+    case ops.users.findMe:
+      return getUrl(join(uri, '/users/me'));
     case ops.users.create:
     case ops.users.find:
     case ops.users.edit:
@@ -77,7 +95,7 @@ export function getApiEndpoint(
     case ops.auth.signout:
       return getUrl(join(uri, '/auth/signout'));
     default:
-      throw new Error('getApiEndpoint: Requested endpoint does not exist');
+      throw new Error(`getApiEndpoint: Endpoint '${op}' does not exist`);
   }
 }
 

@@ -15,26 +15,14 @@ import {
   ClientRoutes,
 } from "@/app.config";
 
-/*
-type LoginFormState = {
-  errors?: {
-    email?: string[];
-    password?: string[];
-  },
-  message?: string | null,
-};
-*/
-
 const log = console.log // SCAFF
-
-// const BACKEND_HOST = process.env.BACKEND_HOST || 'http://localhost:3456';
 
 export async function loginUser(
   currState: LoginFormState,
   formData: FormData
 ) {
 
-  await delay(2000); // SCAFF
+  // await delay(2000); // SCAFF
 
   // log(cookies().getAll()); // SCAFF
 
@@ -66,7 +54,7 @@ export async function loginUser(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(reqBody),
-    cache: 'no-store',
+    // cache: 'no-store',
   });
 
   if (!res.ok || res.status >= 400) {
@@ -79,10 +67,12 @@ export async function loginUser(
 
   const resData = await res.json();
 
+  // log('login response:', resData.data); // SCAFF
+
   // Set client-inaccessible token cookies
   cookies().set({
     name: 'accessToken',
-    value: resData.accessToken,
+    value: resData.data.accessToken,
     httpOnly: true, // only accessible on the server
     secure: true, // over https (or localhost) only
     path: '/',
@@ -90,18 +80,13 @@ export async function loginUser(
 
   cookies().set({
     name: 'refreshToken',
-    value: resData.refreshToken,
+    value: resData.data.refreshToken,
     httpOnly: true, // only accessible on the server
     secure: true, // over https (or localhost) only
     path: '/',
   });
 
-  // log(resData);
-  // log(ClientRoutes.dashboard.home);
-  // log([...res.headers.entries()]);
-
-  // redirect(ClientRoutes.dashboard.home);
-  redirect('/dashboard');
+  redirect(ClientRoutes.dashboard.home);
 }
 
 export async function signupUser(
@@ -109,7 +94,7 @@ export async function signupUser(
   formData: FormData
 ) {
 
-  await delay(2000); // SCAFF
+  // await delay(2000); // SCAFF
 
   const validatedFields = SignupFormSchema.safeParse({
     firstName: formData.get('firstName'),
@@ -142,7 +127,7 @@ export async function signupUser(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(reqBody),
-    cache: 'no-store',
+    // cache: 'no-store',
   });
 
   if (!res.ok || res.status >= 400) {
@@ -156,4 +141,29 @@ export async function signupUser(
   redirect(ClientRoutes.signin);
 
   return {};
+}
+
+/**
+ * Make requests to the backend server.
+ */
+export async function fetchBE(
+  url: string,
+  method: BackendMethods,
+  body: string | object = '',
+  options: FetchOptsBE = {}
+) {
+  const allCookies = cookies().getAll();
+  const atkn = cookies().get('accessToken')?.value;
+
+  // log('#####\n', atkn, '===', allCookies, '#####'); // SCAFF
+
+  return fetch(url, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${atkn}`,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+    cache: options.cache ? 'force-cache' : 'no-store',
+  });
 }
