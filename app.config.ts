@@ -99,6 +99,12 @@ export function getApiEndpoint(
   }
 }
 
+export class CredentialsError extends Error {
+  constructor(public message: string) {
+    super(message);
+  }
+}
+
 const config = {
   BACKEND_HOST,
   API_PREFIX,

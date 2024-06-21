@@ -7,6 +7,11 @@ type LoginFormState = {
   apiError?: string,
 };
 
+type SigninCredentials = {
+  email: string;
+  password: string;
+};
+
 type SignupFormState = {
   errors?: {
     firstName?: string[];

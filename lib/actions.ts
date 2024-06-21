@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
+import { AuthError } from "next-auth";
 
 import {
   LoginFormSchema,
@@ -13,7 +14,9 @@ import {
   getApiEndpoint,
   ops,
   ClientRoutes,
+  CredentialsError,
 } from "@/app.config";
+import { signIn } from "@/auth";
 
 const log = console.log // SCAFF
 
@@ -41,6 +44,31 @@ export async function loginUser(
   // Make request to backend
   // console.log(validatedFields.data); // SCAFF
 
+  const reqBody = {
+    email: validatedFields.data.email,
+    password: validatedFields.data.password,
+  };
+
+  try {
+    await signIn('credentials', reqBody);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return { apiError: 'Invalid credentials.' };
+        default:
+          return { apiError: 'Something went wrong.' };
+      }
+    }
+
+    if (error instanceof CredentialsError) {
+      return { apiError: 'Email and/or password incorrect' };
+    }
+
+    throw error;
+  }
+
+  /*
   const reqBody = {
     email: validatedFields.data.email,
     password: validatedFields.data.password,
@@ -87,6 +115,7 @@ export async function loginUser(
   });
 
   redirect(ClientRoutes.dashboard.home);
+  */
 }
 
 export async function signupUser(
