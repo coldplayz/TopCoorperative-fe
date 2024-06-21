@@ -184,7 +184,7 @@ export async function fetchBE(
   const allCookies = cookies().getAll();
   const atkn = cookies().get('accessToken')?.value;
 
-  // log('#####\n', atkn, '===', allCookies, '#####'); // SCAFF
+  log('#####\n', atkn, '===', allCookies, '#####'); // SCAFF
 
   return fetch(url, {
     method,

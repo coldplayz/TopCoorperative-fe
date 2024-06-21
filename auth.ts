@@ -9,6 +9,8 @@ import {
   CredentialsError,
 } from "@/app.config";
 
+const log = console.log; // SCAFF
+
 async function getUser(email: string, password: string) {
   const url = getApiEndpoint(ops.auth.signin);
   const reqBody = { email, password };
@@ -32,7 +34,7 @@ async function getUser(email: string, password: string) {
 
   const resData = await res.json();
 
-  // log('login response:', resData.data); // SCAFF
+  log('login response:', resData.data); // SCAFF
 
   // Set client-inaccessible token cookies
   cookies().set({
@@ -50,6 +52,8 @@ async function getUser(email: string, password: string) {
     secure: true, // over https (or localhost) only
     path: '/',
   });
+
+  log(cookies().getAll()); // SCAFF
 
   return resData.data;
 }
